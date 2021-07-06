@@ -37,32 +37,44 @@ public class FindSubStringInText {
                 break;
             }
         }
+        //This is to store the formatted return value
         String result = "";
+        //If the sub string doesn't exist in the text, the text must be returned untouched!
         if(resultList.size() == 0)
         {
             return text;
         }
+        //Otherwise, in the returned value all parts equal to the sub string must be capitalized!
         else {
             int lastCounter = 0;
+            //The outer loop goes on the text
             for (int j = 0; j < text.length(); j++) {
+                //If j equals with the first stored index, from that point as long as the sub string length, it
+                //has to be capitalized. The difference between small and capital letters is 32!
                 if (j == resultList.get(0)) {
                     for (int k = 0; k < sub.length(); k++) {
                         result += (char) ((int)(text.charAt(j + k)) - 32);
                     }
+                    //Now, that index must be dropped
                     resultList.remove(0);
+                    //If the dropped index is the last stored index, the loop must be broken and the rest
+                    //of the text must be added all in small letters.
                     if(resultList.size() == 0)
                     {
                         j += sub.length();
                         lastCounter = j;
                         break;
                     }
+                    //The value of j must be adjusted,
                     j += sub.length() - 1;
                 }
+                //If j doesn't equal with the stored value of index, small letters have to be stored
                 else
                 {
                     result += text.charAt(j);
                 }
             }
+            //Any rest part of the text, has to be added in small letters
             for (int j = lastCounter; j < text.length(); j++)
             {
                 result += text.charAt(j);
